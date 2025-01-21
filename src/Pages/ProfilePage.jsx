@@ -45,9 +45,9 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="flex min-h-screen  ">
+    <div className="flex min-h-screen   ">
       {/* Left Sidebar */}
-      <div className="w-full hidden sm:block min-h-screen">
+      <div className="w-full hidden sm:block sm:w-1/6 min-h-screen">
         <LeftSidebar />
       </div>
 

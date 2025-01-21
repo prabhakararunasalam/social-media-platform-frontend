@@ -1,26 +1,29 @@
-import React,{ useState, useEffect} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
-import { toast, Toaster } from 'react-hot-toast';
-import { useNavigate, Link } from 'react-router-dom';
-import { setUser } from '../Redux/authSlice';
-import { AiOutlineHome, AiOutlineSearch, AiOutlineHeart } from 'react-icons/ai';
-import { BiLogOut } from 'react-icons/bi';
-import { FaUserCircle } from 'react-icons/fa';
-import { RiAddBoxLine } from 'react-icons/ri';
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { toast, Toaster } from "react-hot-toast";
+import { useNavigate, Link } from "react-router-dom";
+import { setUser } from "../Redux/authSlice";
+import { AiOutlineHome, AiOutlineSearch, AiOutlineHeart } from "react-icons/ai";
+import { BiLogOut } from "react-icons/bi";
+import { FaUserCircle } from "react-icons/fa";
+import { RiAddBoxLine } from "react-icons/ri";
 
 const LeftSideBar = () => {
-    const { user } = useSelector((store) => store.auth);
-    const [loading, setLoading] = useState(false);
-    const [newNotifications, setNewNotifications] = useState(false); // Track new notifications
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+  const { user } = useSelector((store) => store.auth);
+  const [loading, setLoading] = useState(false);
+  const [newNotifications, setNewNotifications] = useState(false); // Track new notifications
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-    // Simulate notification checking (In real case, fetch this from backend)
+  // Simulate notification checking (In real case, fetch this from backend)
   useEffect(() => {
     const checkNewNotifications = async () => {
       try {
-        const res = await axios.get(`https://social-media-backend-reon.onrender.com/api/users/notifications`, { withCredentials: true });
+        const res = await axios.get(
+          `https://social-media-backend-reon.onrender.com/api/users/notifications`,
+          { withCredentials: true }
+        );
         setNewNotifications(res.data.notifications.length > 0);
       } catch (error) {
         console.error("Error fetching notifications:", error);
@@ -33,7 +36,11 @@ const LeftSideBar = () => {
   const handleLogout = async () => {
     try {
       setLoading(true);
-      const res = await axios.post("https://social-media-backend-reon.onrender.com/api/auth/logout", {}, { withCredentials: true });
+      const res = await axios.post(
+        "https://social-media-backend-reon.onrender.com/api/auth/logout",
+        {},
+        { withCredentials: true }
+      );
       dispatch(setUser(""));
       toast.success(res.data?.message || "Successfully logged out.");
       navigate("/login");
@@ -44,11 +51,15 @@ const LeftSideBar = () => {
       setLoading(false);
     }
   };
-    return (
-        <div className="w-20 ml-5   text-white flex flex-col items-center py-6 fixed left-0 top-0 h-full space-y-8 shadow-lg">
+  return (
+    <div className="w-20 ml-5    text-white flex flex-col items-center py-6 fixed left-0 top-0 h-full space-y-8 shadow-lg">
       {/* Logo */}
       <div className="flex justify-center mb-6">
-        <img width={"60px"} src="https://www.edigitalagency.com.au/wp-content/uploads/Threads-app-logo-white-png-transparent.png" alt="Logo" />
+        <img
+          width={"60px"}
+          src="https://www.edigitalagency.com.au/wp-content/uploads/Threads-app-logo-white-png-transparent.png"
+          alt="Logo"
+        />
       </div>
 
       {/* Menu Items */}
@@ -68,7 +79,11 @@ const LeftSideBar = () => {
         </Link>
 
         {/* Notifications Icon */}
-        <Link to="/notifications/{user?.id}" onClick={() => setNewNotifications(false)} className="group relative">
+        <Link
+          to="/notifications/{user?.id}"
+          onClick={() => setNewNotifications(false)}
+          className="group relative"
+        >
           <div className="text-gray-400 group-hover:text-white transition-colors p-2">
             <AiOutlineHeart size={40} />
             {/* Notification Badge */}
@@ -89,7 +104,9 @@ const LeftSideBar = () => {
         <div className="group cursor-pointer text-gray-400 group-hover:text-white transition-colors p-2">
           <BiLogOut
             size={40}
-            className={`transform transition-transform duration-200 hover:scale-110 ${loading && "opacity-50 cursor-not-allowed"}`}
+            className={`transform transition-transform duration-200 hover:scale-110 ${
+              loading && "opacity-50 cursor-not-allowed"
+            }`}
             onClick={(e) => {
               e.preventDefault();
               handleLogout();
@@ -101,7 +118,7 @@ const LeftSideBar = () => {
       {/* Toast Notifications */}
       <Toaster />
     </div>
-    );
+  );
 };
 
 export default LeftSideBar;
