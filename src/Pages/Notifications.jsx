@@ -50,13 +50,13 @@ const Notifications = () => {
     <div className="flex flex-col md:flex-row min-h-screen ">
       
       {/* Left Sidebar */}
-      <div className="w-full hidden md:w-1/4 md:block shadow-lg p-4">
+      <div className="w-full hidden md:w-1/5 md:block shadow-lg p-4">
         <LeftSidebar />
       </div>
       <div className="divider divider-horizontal divider-start" />
 
       {/* Main Content */}
-      <div className="w-full md:w-1/4 p-6">
+      <div className="w-full  p-6">
       <Link to={`/home`} className="p-2 rounded-full block md:hidden  hover:bg-white-100 cursor-pointer">
               <IoMdArrowBack size="24px" className="text-gray-200" />
             </Link>
